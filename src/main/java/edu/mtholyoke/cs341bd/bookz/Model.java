@@ -59,6 +59,24 @@ public class Model{
 		
 		
 	}
+	
+	public List<GutenbergBook> getBooksWithAuthor(String string){
+		List<GutenbergBook> listToReturn= new ArrayList<GutenbergBook>();
+		for(GutenbergBook currBook : library.values()) {
+			if(currBook.creator!=null){
+				String author=currBook.creator.split(",")[0].toLowerCase(); //get the book title
+				if(author!=null && string!=null){
+					if(author.contains(string.toLowerCase())){
+						listToReturn.add(currBook);
+					}
+				}	
+			}
+		}
+		return listToReturn;
+		
+		
+	}
+
 
 	public List<GutenbergBook> getRandomBooks(int count) {
 		return ReservoirSampler.take(count, library.values());

@@ -47,8 +47,11 @@ public class HTMLView {
 	public static void printSearchForm(PrintWriter output) {
 	    output.println("<div class=\"form\">");
 	    output.println("  <form action=\"submit\" method=\"GET\">"); //changed to get
-	   output.println(" <label><br>Title: <input type=\"text\" name=\"title\" " +
-	        "/></label>");
+	  // output.println(" <label><br>Title: <input type=\"text\" name=\"title\" " +
+	  //      "/></label>");
+	    
+	    output.println(" <label><br>Author: <input type=\"text\" name=\"author\" " +
+	    		        "/></label>");
 	   output.println("     <br><input type=\"submit\" value=\"Search!\" />");
 	    output.println("  </form>");
 	    output.println("</div>");
@@ -58,11 +61,12 @@ public class HTMLView {
 	public String getStaticURL(String resource) {
 		return "static/" + resource;
 	}
-	public static void printPaging(PrintWriter output,int numPages, String titleSearched){
+	public static void printPaging(PrintWriter output,int numPages, String authorSearched){
 		int page=1;
 		for(page = 1; page <= numPages; page++) {
 			Map<String, String> m= new HashMap<String, String>();
-			m.put("title",titleSearched );
+			//m.put("title",titleSearched );
+			m.put("author",authorSearched );
 			m.put("page",Integer.toString(page)); //put these in the map
 			String newURL=Util.encodeParametersInURL(m,"/submit");
 			output.println("<a href='"+newURL+"'>"+page+"</a> "); //maybe

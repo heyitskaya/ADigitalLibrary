@@ -30,6 +30,7 @@ public class BookzServer extends AbstractHandler {
 	HTMLView view;
 	Model model;
 	String titleSearched;
+	String authorSearched;
 	int numPages;
 	//List<GutenbergBook> booksReturned;
 	int counter;
@@ -147,9 +148,14 @@ public class BookzServer extends AbstractHandler {
 			
 			if("/submit".equals(path)) {
 				Map<String, String[]> allInputs = req.getParameterMap();
-				titleSearched = req.getParameter("title");
+				//titleSearched = req.getParameter("title");
+				authorSearched=req.getParameter("author");
+				System.out.println("authorSearched "+authorSearched);
 				req.getParameter("page"); //getting the page number
-				List<GutenbergBook> booksReturned=this.model.getBooksWithString(titleSearched);
+				//List<GutenbergBook> booksReturned=this.model.getBooksWithString(titleSearched);
+			//	List<GutenbergBook> booksReturned=this.model.getBooksWithString(titleSearched);
+				List<GutenbergBook> booksReturned=this.model.getBooksWithAuthor(authorSearched);
+				
 				System.out.println("numBooks returned "+booksReturned.size());
 				if(booksReturned.size()%10!=0)
 				{
@@ -159,7 +165,8 @@ public class BookzServer extends AbstractHandler {
 					numPages=booksReturned.size()/10;
 				}
 				
-				view.printPaging(resp.getWriter(),numPages,titleSearched);
+				//view.printPaging(resp.getWriter(),numPages,titleSearched);
+				view.printPaging(resp.getWriter(),numPages,authorSearched);
 				//System.out.println("showBookCollection pageNumber "+allInputs.get("page").toString());
 				int currPageNumber;
 				if(Util.join(allInputs.get("page"))==null){
