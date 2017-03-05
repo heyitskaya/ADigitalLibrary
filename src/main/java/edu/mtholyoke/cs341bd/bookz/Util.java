@@ -65,4 +65,9 @@ public class Util {
 		}
 		return output.toString();
 	}
+  public static String capitalize(String input){
+	  char first=Character.toTitleCase(input.charAt(0));
+	  return first+input.substring(1);
+	  
+  }
 }

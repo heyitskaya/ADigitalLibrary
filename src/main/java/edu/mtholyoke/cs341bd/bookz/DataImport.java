@@ -24,7 +24,7 @@ public class DataImport {
 
   static String getOrNull(JSONObject obj, String key) throws JSONException {
     if(!obj.has(key) || obj.isNull(key)) {
-      return null;
+      return ""; //no author
     }
     return obj.getString(key);
   }

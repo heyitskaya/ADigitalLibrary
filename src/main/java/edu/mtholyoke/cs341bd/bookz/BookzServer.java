@@ -170,12 +170,12 @@ public class BookzServer extends AbstractHandler {
 				//System.out.println("showBookCollection pageNumber "+allInputs.get("page").toString());
 				int currPageNumber;
 				if(Util.join(allInputs.get("page"))==null){
-					view.showBookCollection(booksReturned,resp,1);
+					view.showBookCollection(booksReturned,req,resp,1, "Books By Title",path); //foley
 				}
 				else
 				{
 					currPageNumber =Integer.parseInt(Util.join(allInputs.get("page")));
-					view.showBookCollection(booksReturned,resp, currPageNumber);
+					view.showBookCollection(booksReturned,req,resp, currPageNumber, "Books By Title",path);//foley
 					System.out.println("displaying collection of books from "+currPageNumber);
 					
 				}
@@ -187,7 +187,9 @@ public class BookzServer extends AbstractHandler {
 			String titleCmd = Util.getAfterIfStartsWith("/title/", path);
 			if(titleCmd != null) {
 				char firstChar = titleCmd.charAt(0);
-				view.showBookCollection(this.model.getBooksStartingWith(firstChar), resp,1); //I made this up
+				String url="/title/"+firstChar;
+				
+				view.showBookCollection(this.model.getBooksStartingWith(firstChar),req, resp,1, "Books By Title '"+firstChar+"'",path); //I made this up
 			}
 
 			// Check for startsWith and substring

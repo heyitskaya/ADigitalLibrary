@@ -1,5 +1,7 @@
 package src.main.java.edu.mtholyoke.cs341bd.bookz;
 import java.util.*;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
@@ -137,10 +139,36 @@ public class HTMLView {
 	
 	
 //page number
-	public void showBookCollection(List<GutenbergBook> theBooks, HttpServletResponse resp,int pageNumber) throws IOException {
+	public void showBookCollection(List<GutenbergBook> theBooks, HttpServletRequest req,HttpServletResponse resp,int pageNumber, String pageTitle,String url) throws IOException {
+		
+		
+		//get the sort parameter we know how to sort
+		String sortHow=req.getParameter("sort");
+		
+		
+		if(sortHow==null || sortHow.equals("title"))
+		{
+			Collections.sort(theBooks,GutenbergBook.sortByTitle);
+		}
+		else if(sortHow.equals("author")){
+			Collections.sort(theBooks,GutenbergBook.sortByAuthor);
+		}
+		else{
+			resp.sendError(HttpServletResponse.SC_BAD_REQUEST,"Bad Sort");
+			return;
+		}
+		
 		int start=(pageNumber-1)*10;
+		
+		
 		try (PrintWriter html = resp.getWriter()) {
 			printPageStart(html, "Bookz");
+
+		
+			
+			html.println("<a href='"+Util.encodeParametersInURL(Collections.singletonMap("sort", "title"),url)+"'>Sort by Title</a>");
+			html.println("<a href='"+Util.encodeParametersInURL(Collections.singletonMap("sort", "author"),url)+"'>Sort by Author</a>");
+		
 			for (int i = start; i < start+10;i++){
 				if(i<theBooks.size())
 				{	

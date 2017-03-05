@@ -1,6 +1,7 @@
 package src.main.java.edu.mtholyoke.cs341bd.bookz;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,4 +28,39 @@ public class GutenbergBook {
   public String getGutenbergURL() {
     return "http://www.gutenberg.org/ebooks/"+getBookNumber();
   }
+  
+	public static Comparator<GutenbergBook> sortByTitle = new Comparator<GutenbergBook>() {
+
+		@Override
+		public int compare(GutenbergBook lhs, GutenbergBook rhs) {
+			// TODO Auto-generated method stub
+			return lhs.title.compareTo(rhs.title);
+		}
+
+	};
+
+	public static Comparator<GutenbergBook> sortByAuthor = new Comparator<GutenbergBook>() {
+
+		@Override
+		public int compare(GutenbergBook lhs, GutenbergBook rhs) {
+			// TODO Auto-generated method stub
+			return lhs.creator.compareTo(rhs.creator);
+		}
+
+	};
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 }
