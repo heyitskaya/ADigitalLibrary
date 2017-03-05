@@ -2,6 +2,7 @@ package src.main.java.edu.mtholyoke.cs341bd.bookz;
 import java.util.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,9 +57,29 @@ public class Model{
 			//else do nothing
 		}
 		return listToReturn;
-		
-		
 	}
+	
+	public static Comparator<GutenbergBook> sortByFirstName = new Comparator<GutenbergBook>() {
+
+		@Override
+		public int compare(GutenbergBook lhs, GutenbergBook rhs) {
+			
+			String creatorLeft=lhs.creator;
+			String creatorRight=rhs.creator;
+			if(creatorLeft!=null && creatorRight!=null){
+			String left=creatorLeft.split(",")[1].toLowerCase();
+			System.out.println("left "+left);
+			String right=creatorRight.split(",")[1].toLowerCase();
+			System.out.println("right "+right);
+			return left.compareTo(right);
+			}
+			return 0;
+		}
+
+	};
+	
+	
+	
 	
 	public List<GutenbergBook> getBooksWithAuthor(String string){
 		List<GutenbergBook> listToReturn= new ArrayList<GutenbergBook>();
@@ -72,6 +93,9 @@ public class Model{
 				}	
 			}
 		}
+		//once we have our list of authors with same last name we 
+		//want to sort by first name
+		Collections.sort(listToReturn,this.sortByFirstName); //sorting by first name
 		return listToReturn;
 		
 		

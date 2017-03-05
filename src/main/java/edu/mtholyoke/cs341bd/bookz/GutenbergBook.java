@@ -28,7 +28,7 @@ public class GutenbergBook {
   public String getGutenbergURL() {
     return "http://www.gutenberg.org/ebooks/"+getBookNumber();
   }
-  
+  	/** called in HTML view**/
 	public static Comparator<GutenbergBook> sortByTitle = new Comparator<GutenbergBook>() {
 
 		@Override
@@ -48,6 +48,8 @@ public class GutenbergBook {
 		}
 
 	};
+	
+	
   
   
   
